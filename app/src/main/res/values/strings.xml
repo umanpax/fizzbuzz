@@ -7,5 +7,5 @@
     <string name="str2">str2</string>
     <string name="generate">GENERATE</string>
     <string name="reset">Reset</string>
-    <string name="err_msg_no_internet_connection">No data to display, please verify your internet connection !</string>
+    <string name="err_msg">You have to fill all the fields !</string>
 </resources>

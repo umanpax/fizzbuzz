@@ -31,7 +31,6 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -91,6 +90,7 @@ fun FizzBuzzScreen(
             EditableInteger(
                 label = R.string.int1,
                 labelColor = R.color.blue_EB7,
+                limit = 3,
                 onValueChanged = {
                     int1 = it
                 }
@@ -99,6 +99,7 @@ fun FizzBuzzScreen(
             EditableInteger(
                 label = R.string.int2,
                 labelColor = R.color.blue_EB7,
+                limit = 3,
                 onValueChanged = {
                     int2 = it
                 }
@@ -107,6 +108,7 @@ fun FizzBuzzScreen(
             EditableInteger(
                 label = R.string.limit,
                 labelColor = R.color.blue_EB7,
+                limit = 4,
                 onValueChanged = {
                     limit = it
                 }
@@ -122,14 +124,17 @@ fun FizzBuzzScreen(
             Editable(
                 label = R.string.str1,
                 labelColor = R.color.blue_EB7,
+                limit = 4,
                 onValueChanged = {
                     str1 = it
                 }
+
             )
 
             Editable(
                 label = R.string.str2,
                 labelColor = R.color.blue_EB7,
+                limit = 4,
                 onValueChanged = {
                     str2 = it
                 }
@@ -142,7 +147,8 @@ fun FizzBuzzScreen(
             id = R.string.generate
         ),
             onClickedButton = {
-                keyboardController?.hide()
+                if (int1 != 0 && int2 != 0 && limit != 0 && str1.isNotEmpty() && str2.isNotEmpty()) {
+                    keyboardController?.hide()
                     viewModel.getFizzBuzzList(
                         int1 = int1,
                         int2 = int2,
@@ -150,6 +156,13 @@ fun FizzBuzzScreen(
                         str1 = str1,
                         str2 = str2
                     )
+                } else {
+                    Toast.makeText(
+                        context,
+                       context.getText(R.string.err_msg),
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
             })
 
         Spacer(modifier = Modifier.height(16.dp))
@@ -159,15 +172,8 @@ fun FizzBuzzScreen(
                 items = viewState.fizzBuzzList
             )
         } else if (viewState.error.isNotEmpty()) {
-            Text(
-                text = stringResource(id = R.string.err_msg_no_internet_connection),
-                color = Color.Red,
-                fontSize = 26.sp,
-                textAlign = TextAlign.Center,
-                modifier = Modifier
-                    .width(400.dp)
-                    .padding(8.dp),
-            )
+            Toast.makeText(context, viewState.error, Toast.LENGTH_SHORT)
+                .show()
         }
 
         if (viewState.error.isNotEmpty()) {
@@ -219,5 +225,7 @@ fun ItemFizzBuzz(
         )
     }
 }
+
+
 
 
