@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">FizzBuzz</string>
+    <string name="int1">int1</string>
+    <string name="int2">int2</string>
+    <string name="limit">limit</string>
+    <string name="str1">str1</string>
+    <string name="str2">str2</string>
+    <string name="generate">GENERATE</string>
+    <string name="reset">Reset</string>
+    <string name="err_msg_no_internet_connection">No data to display, please verify your internet connection !</string>
+</resources>
